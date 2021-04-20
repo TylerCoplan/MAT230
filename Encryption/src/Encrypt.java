@@ -1,22 +1,28 @@
-
 public class Encrypt {
 
 	public static void main(String[] args) {
-		String message = "THERE IS NO TRAIL HERE";
+		// enter message below using only capital letters and spaces
+		String message = "THIS IS THE SONG THAT NEVER ENDS";
+		
 		char tempChar = ' ';
 		String tempStr = "";
 		String encodedMessage = "";
+		
+		// used in formula c = m^e % N
 		double e = 3;
 		int N = 33;
 		double m = 0;
 		int c = 0;
 		
+		// loop to encrypt message
 		while (!message.equals("")) {
+			
+			// get first char and convert to string
 			tempChar = message.charAt(0);
 			tempStr = Character.toString(tempChar);
-			if (!message.equals("")) {
-				message = message.substring(1, message.length());
-			}
+			
+			// strip first char off message
+			message = message.substring(1, message.length());
 
 			switch (tempStr) {
 				case "A":
@@ -102,12 +108,15 @@ public class Encrypt {
 					break;
 			}
 			
+			// gives encoded number using public keys e and N in formula c = m^e % N
 			c = (int)Math.pow(m, e) % N;
 			
+			// adds 0 if needed
 			if (c < 10) {
 				encodedMessage += "0";
 			}
 			
+			// concatenates encoded character to the message
 			encodedMessage += String.valueOf(c);
 		}
 		
