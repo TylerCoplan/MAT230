@@ -1,31 +1,45 @@
-
 public class Decrypt {
 
 	public static void main(String[] args) {
 		
-		String c = "14172624263203283205093214240103123217262426";
-		String temp = "";
+		// enter encrypted string to decode below between the quotations
+		String codedMessage = "";
+		
+		String encodedCharacter = "";
 		String message = "";
 		int tempInt = 0;
-		double tempDbl;
-		double m = 0;
-		double d = 7;
-		int n = 33;
 		
-		while (c != "") {
-			temp = c.substring(0, 2);
-			if (c.length() > 2) {
-				c = c.substring(2, c.length());
+		// used in formula m = c^d % N
+		double c;
+		double m = 0;
+		double d = 7; // our private key
+		int n = 33; 
+		
+		// loop to decode message
+		while (!codedMessage.equals("")) {
+			
+			// get 2 digit encoded character
+			encodedCharacter = codedMessage.substring(0, 2);
+			
+			// remove encoded character
+			if (codedMessage.length() > 2) {
+				codedMessage = codedMessage.substring(2, codedMessage.length());
 			}
 			else {
-				c = "";
+				codedMessage = "";
 			}
 			
-			tempInt = Integer.parseInt(temp);
-			tempDbl = tempInt;
-			m = Math.pow(tempDbl, d) % n;
-			tempInt = (int)m;
-			switch (tempInt) {
+			// parse encoded character to int
+			tempInt = Integer.parseInt(encodedCharacter);
+			
+			// parse int to double
+			c = tempInt;
+			
+			// formula m = c^d % n
+			m = Math.pow(c, d) % n;
+
+			//get character from m derived from above forumla and concatenate to message
+			switch ((int)m) {
 			case 1:
 				message += "A";
 				break;
@@ -111,7 +125,8 @@ public class Decrypt {
 				return;
 			}
 		}
-
+		
+		// print message
 		System.out.println(message);
 	}
 
